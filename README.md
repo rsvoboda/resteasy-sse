@@ -7,7 +7,7 @@ You need to install locally JAX-RS 2.1 API resteasy branch and RESTEasy jsr370 b
  * https://github.com/asoldano/Resteasy/tree/jsr370
  
 You also need WildFly instance with installed JAX-RS 2.1 API and RESTEasy JAX-RS 2.1 implementation.
-To install RESTEasy jsr370 branch bit you will run `mvn install`, so the easiest option is to use already patched WildFly instance from the testsuite - for example
+To install RESTEasy jsr370 branch bits you will run `mvn install`, so the easiest option is to use already patched WildFly instance from the testsuite - for example
  `testsuite/integration-tests/target/test-server/wildfly-10.1.0.Final`.
  
 ## Building and deploying the application
