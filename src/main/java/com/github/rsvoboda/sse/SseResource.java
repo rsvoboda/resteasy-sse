@@ -16,18 +16,23 @@ import java.util.Random;
 
 @Path("/server-sent-events") public class SseResource {
 
+    final Sse sse = new SseImpl(); //TODO inject this
 
     @GET @Path("sse/{id}")
     @Produces("text/event-stream")
     public void greenHouseStatus(@PathParam("id") final String id) {
-        final Sse sse = new SseImpl(); //TODO inject this
         final SseEventSink eventSink = new SseEventOutputImpl(new SseEventProvider()); //TODO replace this with @Context injected value
+
+        // customize delay of events based on id (expecting number)
+        int tmp_delay = 1000;
+        try { tmp_delay = tmp_delay + (Integer.parseInt(id) - 1) * 1000 / 4; } catch (NumberFormatException e) { /* ignore, keep default multiply */ }
+        final int delay = tmp_delay;
 
         new Thread(() -> {
             try {
                 for (int i = 1; i <= 15; i++) {
                     eventSink.onNext(createStatsEvent(sse.newEventBuilder().comment("greenhouse"), i));
-                    Thread.sleep(1000);
+                    Thread.sleep(delay);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

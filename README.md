@@ -19,4 +19,4 @@ mvn package && cp target/resteasy-sse.war /path/to/wildfly-10.1.0.Final-SSE/stan
 ## Client application
 JS based client logic is included in index.html of the deployed web application.
 
-Open http://127.0.0.1:8080/resteasy-sse/index.html in your web browser
+Open http://127.0.0.1:8080/resteasy-sse/index.html or http://127.0.0.1:8080/resteasy-sse/multi.html in your web browser
