@@ -11,9 +11,9 @@ To install RESTEasy jsr370 branch bits you will run `mvn install`, so the easies
  `testsuite/integration-tests/target/test-server/wildfly-10.1.0.Final`.
  
 ## Building and deploying the application
-All you need is to invoke Maven and copy bits to `deployments` directory of running WildFly server.
+All you need is to invoke Maven and WildFly Maven Plugin, running WildFly server is expected.
 ```
-mvn package && cp target/resteasy-sse.war /path/to/wildfly-10.1.0.Final-SSE/standalone/deployments/
+mvn package wildfly:deploy
 ```
 
 ## Client application
