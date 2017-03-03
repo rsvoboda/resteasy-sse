@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SSE Example - multi chart</title>
+        <title>SSE Example</title>
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.3.min.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
     </head>
     
     <body>
 		<div id="content">
-            <div id="chart">
-            </div>
-            <div id="chart2">
-            </div>
+			<div id="chart">
+			</div>
 		</div>
 	</body>
 </html>
@@ -39,32 +37,9 @@
 	       }
 	    ]
 	}); 
-    var chart2 = new Highcharts.Chart({
-	    chart: {
-	        renderTo: 'chart2',
-	        defaultSeriesType: 'spline'
-	    },
-	    title: {
-                text: 'GreenHouse Status'
-        },
-	    xAxis: {
-	        type: 'datetime'
-	    },
-	    series: [{
-	        name: "Temperature",
-	        data: []
-	       },
-	       {
-	        name: "Humidity",
-	        data: [],
-	        color: '#00ff00'
-	       }
-	    ]
-	});
 
 	if( !!window.EventSource ) {
 	    var event = new EventSource("http://127.0.0.1:8080/resteasy-sse/service/server-sent-events-inject/sse/1");
-	    var event2 = new EventSource("http://127.0.0.1:8080/resteasy-sse/service/server-sent-events-inject/sse/2");
 
 	    event.addEventListener('message', function( event ) {	
 	    	var datapoint = jQuery.parseJSON( event.data );
@@ -81,23 +56,6 @@
 
 	    $('#content').bind('unload',function() {
 	    	event.close();
-		});
-	    event2.addEventListener('message', function( event ) {
-	    	var datapoint = jQuery.parseJSON( event.data );
-
-	    	chart2.series[ 0 ].addPoint({
-	            x: datapoint.timestamp,
-	            y: datapoint.tempe
-	        }, true, chart2.series[ 0 ].data.length >= 50 );
-	        chart2.series[ 1 ].addPoint({
-	            x: datapoint.timestamp,
-	            y: datapoint.humid
-	        }, true, chart2.series[ 0 ].data.length >= 50 )
-	    } );
-
-	    $('#content').bind('unload',function() {
-	    	event.close();
-	    	event2.close();
 		});
 	} 	
 </script>

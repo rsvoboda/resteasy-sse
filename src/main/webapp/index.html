@@ -1,61 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SSE Example</title>
-        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.3.min.js"></script>
-        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <title>SSE Example project</title>
     </head>
-    
     <body>
-		<div id="content">
-			<div id="chart">
-			</div>
-		</div>
+		<ul>
+            <li><a href="sse-no-inject.html">Original SSE example without injection</a> </li>
+            <li><a href="sse-inject.html">SSE example with injection via JAX-RS @Context</a> </li>
+            <li><a href="multi.html">SSE example for 2 charts (using endpoint with injection)</a> </li>
+        </ul>
 	</body>
 </html>
-
-<script type="text/javascript">
-	var chart = new Highcharts.Chart({
-	    chart: {
-	        renderTo: 'chart',
-	        defaultSeriesType: 'spline'
-	    },
-	    title: {
-                text: 'GreenHouse Status'
-        },           
-	    xAxis: {
-	        type: 'datetime'
-	    },   
-	    series: [{
-	        name: "Temperature",
-	        data: []
-	       }, 
-	       {
-	        name: "Humidity",
-	        data: [],
-	        color: '#00ff00'
-	       }
-	    ]
-	}); 
-
-	if( !!window.EventSource ) {
-	    var event = new EventSource("http://127.0.0.1:8080/resteasy-sse/service/server-sent-events/sse/1");
-
-	    event.addEventListener('message', function( event ) {	
-	    	var datapoint = jQuery.parseJSON( event.data );
-	    	 
-	    	chart.series[ 0 ].addPoint({
-	            x: datapoint.timestamp,
-	            y: datapoint.tempe
-	        }, true, chart.series[ 0 ].data.length >= 50 );
-	        chart.series[ 1 ].addPoint({
-	            x: datapoint.timestamp,
-	            y: datapoint.humid
-	        }, true, chart.series[ 0 ].data.length >= 50 )
-	    } );
-
-	    $('#content').bind('unload',function() {
-	    	event.close();
-		});
-	} 	
-</script>

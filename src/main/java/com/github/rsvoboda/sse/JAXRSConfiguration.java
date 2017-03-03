@@ -15,6 +15,7 @@ public class JAXRSConfiguration extends Application {
 
     public JAXRSConfiguration() {
         singletons.add(new SseResource());
+        singletons.add(new SseInjectionResource());
     }
 
     @Override
