@@ -5,12 +5,10 @@ import org.jboss.resteasy.plugins.providers.sse.SseEventProvider;
 import org.jboss.resteasy.plugins.providers.sse.SseImpl;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.sse.OutboundSseEvent;
 import javax.ws.rs.sse.Sse;
 import javax.ws.rs.sse.SseEventSink;
-import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
 
@@ -31,7 +29,7 @@ import java.util.Random;
         new Thread(() -> {
             try {
                 for (int i = 1; i <= 15; i++) {
-                    eventSink.onNext(createStatsEvent(sse.newEventBuilder().comment("greenhouse"), i));
+                    eventSink.send(createStatsEvent(sse.newEventBuilder().comment("greenhouse"), i));
                     Thread.sleep(delay);
                 }
             } catch (Exception e) {

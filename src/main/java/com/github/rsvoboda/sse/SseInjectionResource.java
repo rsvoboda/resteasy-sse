@@ -29,7 +29,7 @@ import java.util.Random;
         new Thread(() -> {
             try {
                 for (int i = 1; i <= 15; i++) {
-                    sink.onNext(createStatsEvent(sse.newEventBuilder().comment("greenhouse"), i));
+                    sink.send(createStatsEvent(sse.newEventBuilder().comment("greenhouse"), i));
                     Thread.sleep(delay);
                 }
             } catch (Exception e) {
